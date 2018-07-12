@@ -1,0 +1,22 @@
+{
+  "name": "express.js-basics",
+  "version": "1.0.0",
+  "description": "Educational Series - Express.js Basics",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeebleWobb/express.js-basic.git"
+  },
+  "author": "Juan D. Bolanos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WeebleWobb/express.js-basic/issues"
+  },
+  "homepage": "https://github.com/WeebleWobb/express.js-basic#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
