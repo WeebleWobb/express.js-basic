@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-    res.send("<h1>What up world, I'm tagged!</h1>");
+    res.send("<h1>Hello world. I'm an HTML element.</h1>");
 });
 
 // Sets up development server
