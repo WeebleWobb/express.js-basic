@@ -4,13 +4,16 @@ const express = require('express');
 // Creates express application 
 const app = express();
 
+// Set pug on view engine
+app.set('view engine', 'pug');
+
 // Create a route
 app.get('/', (req, res) => {
-    res.send("What up world, I'm alive!");
+    res.render('index');
 });
 
-app.get('/hello', (req, res) => {
-    res.send("<h1>Hello world. I'm an HTML element.</h1>");
+app.get('/cards', (req, res) => {
+    res.render('cards', { prompt: "Who is buried in Grant's tomb?", hint: "Think about whose thomb it is."});
 });
 
 // Sets up development server
