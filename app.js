@@ -2,16 +2,24 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 // Creates express application 
 const app = express();
 
 // Set pug on view engine
 app.use(bodyParser.urlencoded({ extended: false}));
+app.use(cookieParser());
 app.set('view engine', 'pug');
 
 // Home view
 app.get('/', (req, res) => {
-    res.render('index');
+    const name = req.cookies.username;
+
+    if(name) {
+        res.render('index', { name });
+    } else {
+        res.redirect('/hello');
+    }
 });
 
 // Cards view
@@ -21,11 +29,25 @@ app.get('/cards', (req, res) => {
 
 // Hello view
 app.get('/hello', (req, res) => {
-    res.render('hello');
+    const name = req.cookies.username;
+ 
+    if(name) {
+        res.redirect('/');
+    } else {
+        res.render('hello'); 
+    }
+    
 });
 
 app.post('/hello', (req, res) => {
-    res.render('hello', ({ name: req.body.username }));
+    res.cookie('username', req.body.username);
+    res.redirect('/');
+});
+
+app.post('/goodbye', (req, res) => {
+    res.clearCookie('username');
+    res.redirect('/hello');
+
 });
 
 // Sets up development server
