@@ -1,59 +1,32 @@
-// Requires express.js from node modules
+// Required middleware
 const express = require('express');
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
 // Creates express application 
 const app = express();
 
-// Set pug on view engine
+// Body and Cookie parser middleware
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
+
+// Set pug on view engine
 app.set('view engine', 'pug');
 
+const mainRoutes = require('./routes');
+const cardRoutes = require('./routes/cards');
+
+// Index route
+app.use(mainRoutes);
+
+// Cards route
+app.use('/cards', cardRoutes);
+
+// Error Handlers
 app.use((req, res, next) => {
     console.log('Middleware');
     const err = new Error("There's an error.");
     next();
-});
-
-// Home view
-app.get('/', (req, res) => {
-    const name = req.cookies.username;
-
-    if(name) {
-        res.render('index', { name });
-    } else {
-        res.redirect('/hello');
-    }
-});
-
-// Cards view
-app.get('/cards', (req, res) => {
-    res.render('cards', { prompt: "Who is buried in Grant's tomb?", hint: "Think about whose thomb it is."});
-});
-
-// Hello view
-app.get('/hello', (req, res) => {
-    const name = req.cookies.username;
- 
-    if(name) {
-        res.redirect('/');
-    } else {
-        res.render('hello'); 
-    }
-    
-});
-
-app.post('/hello', (req, res) => {
-    res.cookie('username', req.body.username);
-    res.redirect('/');
-});
-
-app.post('/goodbye', (req, res) => {
-    res.clearCookie('username');
-    res.redirect('/hello');
-
 });
 
 app.use((req, res, next) => {

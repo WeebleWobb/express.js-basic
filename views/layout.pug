@@ -3,8 +3,12 @@ html(lang="en")
     head
         title Flash Cards
     body
-       include inc/header.pug
+        include inc/header.pug
+        if name
+            h2 Welcome, #{name}!
+            form(action='/goodbye' method='post')
+                button(type='submit') Goodbye
 
-    block content
+        block content
 
-    include inc/footer.pug
+        include inc/footer.pug
