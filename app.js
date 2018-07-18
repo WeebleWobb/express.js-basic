@@ -9,6 +9,7 @@ const app = express();
 // Body and Cookie parser middleware
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
+app.use('/static', express.static('public'));
 
 // Set pug on view engine
 app.set('view engine', 'pug');
@@ -23,8 +24,7 @@ app.use(mainRoutes);
 app.use('/cards', cardRoutes);
 
 // Error Handlers
-app.use((req, res, next) => {
-    console.log('Middleware');
+app.use((req, res, next) => {   
     const err = new Error("There's an error.");
     next();
 });
